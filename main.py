@@ -133,29 +133,37 @@ def evaluatePopulation(populat: list) -> None:
     count += 1
 
 def mutationForIndivudualConfigSVC(fath: IndiviudalSVCConfig) -> IndiviudalSVCConfig: 
+
+
   pass
 
 
 def crossoverForIndivudualConfigSVC(fath: IndiviudalSVCConfig, moth: IndiviudalSVCConfig) -> IndiviudalSVCConfig:
+  fathConf: list = list(fath.getConfig().values())
+  mothConf: list = list(moth.getConfig().values())
+  pointCrossover: int = random
+
+
   pass
 
 
-def geneticAlgorithmInit(nPop: int) -> IndiviudalSVCConfig:
+def geneticAlgorithmInit(nPop: int, epochs: int) -> IndiviudalSVCConfig:
   initialPopulation: list = generatePopulation()
+  evaluatePopulation(initialPopulation)
+  for _ in range(int(epochs)):
+    pass
+
   
   pass
 
 
 
 
-
-
-
-
-
 # Pruebas 
 
-population: list = generatePopulation(10)
+"""
+
+population: list = generatePopulation(4)
 evaluatePopulation(population)
 
 count: int = 0
@@ -165,6 +173,14 @@ for it in population:
   print(f'Individuo {count} : Fitness = {it.getFitness()}')
   count += 1
 
+"""
+
+conf: object = {'kernel': 'linear', 'C': 1}
+print(f'Init conf: {conf}')
+
+
+args: list = list(conf.values())
+print(f'Init conf: {args}')
 
 
 
