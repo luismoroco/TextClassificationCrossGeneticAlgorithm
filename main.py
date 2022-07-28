@@ -39,6 +39,13 @@ def generateConfigForSplitData() -> object:
     'shuffle': random.choice(sufffle)
   }
 
+def generateChildrenConfig(hiper: list) -> object:
+    return {
+    'C': hiper[0], 'kernel': hiper[1],
+    'degree': hiper[2], 'gamma': hiper[3],
+    'probability': hiper[4]
+  }
+
 # Clase Individuo 
 
 class IndiviudalSVCConfig:
@@ -75,6 +82,7 @@ def generatePopulation(nPop: int) -> list:
   config: object
   splitConf: object
   fitnessDefault: float = 0
+  
   for _ in range(int(nPop)):
     config = generateConfigForSVC()
     splitConf = generateConfigForSplitData()
@@ -113,13 +121,16 @@ def getAccuracyForModel(y_test: np.ndarray, y_pred: np.ndarray) -> float:
 
 def evaluatePopulation(populat: list) -> None:
   print(f'Evaluando a los individuos tamaño {len(populat)}')
+  
   count: int = 0
   xConf: object 
   splitC: object
+  
   for indi in populat:
     print(f'Evaluando individuo {count}')
     xConf = indi.getConfig() 
     splitC = indi.getConfigSplit()
+    
     X_train, X_test, y_train, y_test = train_test_split(X, y, **splitC) 
     
     scaler = StandardScaler()
@@ -132,7 +143,7 @@ def evaluatePopulation(populat: list) -> None:
     indi.setFitness(getAccuracyForModel(y_test = y_test, y_pred = predicted))
     count += 1
 
-def mutationForIndivudualConfigSVC(fath: IndiviudalSVCConfig) -> IndiviudalSVCConfig: 
+def mutationForIndivudualConfigSVC(indiConf: IndiviudalSVCConfig) -> IndiviudalSVCConfig: 
 
 
   pass
@@ -141,15 +152,20 @@ def mutationForIndivudualConfigSVC(fath: IndiviudalSVCConfig) -> IndiviudalSVCCo
 def crossoverForIndivudualConfigSVC(fath: IndiviudalSVCConfig, moth: IndiviudalSVCConfig) -> IndiviudalSVCConfig:
   fathConf: list = list(fath.getConfig().values())
   mothConf: list = list(moth.getConfig().values())
-  pointCrossover: int = random
+  pointCrossover: int = random.randint(0, len(fathConf)-1)
 
+  for index in range(pointCrossover, len(fathConf)):
+    fathConf[index] = mothConf[index]
+  
+  newConf: object = generateChildrenConfig(fathConf)
 
-  pass
+  return newConf
 
 
 def geneticAlgorithmInit(nPop: int, epochs: int) -> IndiviudalSVCConfig:
   initialPopulation: list = generatePopulation()
   evaluatePopulation(initialPopulation)
+  
   for _ in range(int(epochs)):
     pass
 
@@ -181,6 +197,32 @@ print(f'Init conf: {conf}')
 
 args: list = list(conf.values())
 print(f'Init conf: {args}')
+
+
+
+it = 4
+arr: list = [1, 1, 1, 1]
+arr1: list = [0, 0, 0, 0]
+print(len(arr))
+
+for index in range(it, len(arr)):
+  arr[index] = arr1[index]
+
+
+"""
+for index in range(0, it):
+  print(index, arr[index])
+  #new[iter] = arr[index]
+  new[index] = arr[index]
+
+for index in range(it, len(arr)):
+  #new[iter] = arr1[index]
+  print(index, arr1[index])
+  new[index] = arr1[index]
+"""
+
+
+print(arr)
 
 
 
