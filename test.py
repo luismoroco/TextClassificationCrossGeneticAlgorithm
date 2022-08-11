@@ -13,8 +13,8 @@ df_review = pd.read_csv('IMDB Dataset.csv')
 df_positive = df_review.loc[df_review['sentiment'] == 'positive']
 df_negative = df_review.loc[df_review['sentiment'] == 'negative']
 
-df_positive = df_positive[:1000]
-df_negative = df_negative[:1000]
+df_positive = df_positive[:800]
+df_negative = df_negative[:800]
 
 frames = [df_positive, df_negative]
 df_final = pd.concat(frames)
@@ -34,7 +34,7 @@ test_x_vector = tfidf.transform(test_x)
 """
 
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 56, shuffle = True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3)
 
 tfid = TfidfVectorizer(stop_words = 'english')
 
@@ -47,10 +47,12 @@ from sklearn.svm import SVC
 
 print(f'Executing SVC')
 
-svc = SVC(kernel='linear')
+svc = SVC()
 svc.fit(X_train, y_train)
 
-print(svc.predict(tfid.transform(['I did not like this movie at all I gave this movie away'])))
+print(svc.predict(tfid.transform(['An excellent movie'])))
+
+print(svc.score(X_test, y_test))
 
 
 

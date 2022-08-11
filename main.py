@@ -163,7 +163,7 @@ def crossoverForIndivudualConfigSVC(fath: IndiviudalSVCConfig, moth: IndiviudalS
 
 
 def geneticAlgorithmInit(nPop: int, epochs: int) -> IndiviudalSVCConfig:
-  initialPopulation: list = generatePopulation()
+  initialPopulation: list = generatePopulation(nPop)
   evaluatePopulation(initialPopulation)
   
   for _ in range(int(epochs)):
@@ -173,6 +173,7 @@ def geneticAlgorithmInit(nPop: int, epochs: int) -> IndiviudalSVCConfig:
   pass
 
 
+geneticAlgorithmInit(10, 5)
 
 
 # Pruebas 
@@ -191,6 +192,9 @@ for it in population:
 
 """
 
+
+
+""" 
 conf: object = {'kernel': 'linear', 'C': 1}
 print(f'Init conf: {conf}')
 
@@ -208,6 +212,13 @@ print(len(arr))
 for index in range(it, len(arr)):
   arr[index] = arr1[index]
 
+"""
+
+
+
+
+
+
 
 """
 for index in range(0, it):
@@ -222,7 +233,7 @@ for index in range(it, len(arr)):
 """
 
 
-print(arr)
+# print(arr)
 
 
 
